@@ -585,12 +585,11 @@ section {
   z-index: 2;
   opacity: 0;
 }
-
 .portfolio .portfolio-wrap .portfolio-links {
-  opacity: 1;
+  opacity: 1; /* Make the links always visible */
   left: 0;
   right: 0;
-  bottom: -60px;
+  bottom: -60px; /* Initial position, consider setting to 0 if you want it visible at all times */
   z-index: 3;
   position: absolute;
   transition: all ease-in-out 0.3s;
@@ -607,7 +606,8 @@ section {
   width: 50%;
 }
 
-.portfolio .portfolio-wrap .portfolio-links a:hover {
+.portfolio .portfolio-wrap a:hover,
+.portfolio .portfolio-wrap:hover .portfolio-links a {
   background: rgba(20, 157, 221, 0.95);
 }
 
@@ -615,17 +615,20 @@ section {
   border-left: 1px solid #37b3ed;
 }
 
-.portfolio .portfolio-wrap:hover::before {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 1;
+@media (hover: none) {
+  /* This ensures that on touch devices the links are always visible */
+  .portfolio .portfolio-wrap .portfolio-links {
+    opacity: 1;
+    bottom: 0;
+  }
 }
 
-.portfolio .portfolio-wrap:hover .portfolio-links {
-  opacity: 1;
-  bottom: 0;
+@media (hover: hover) {
+  /* Only for devices that support hover, apply hover-specific styles */
+  .portfolio .portfolio-wrap:hover .portfolio-links {
+    opacity: 1;
+    bottom: 0;
+  }
 }
 
 /*--------------------------------------------------------------
